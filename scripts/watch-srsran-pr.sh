@@ -22,8 +22,8 @@ if ! "$GH" auth status >/dev/null 2>&1; then
 fi
 
 "$GH" pr view "$PR" --repo "$REPO" \
-  --json number,title,state,merged,mergedAt,mergedBy,url,reviewDecision \
+  --json number,title,state,mergedAt,mergedBy,url,reviewDecision \
   --jq '"PR #\(.number): \(.title)
-State: \(.state)\(if .merged then " (merged \(.mergedAt) by \(.mergedBy.login))" else "" end)
+State: \(.state)\(if .mergedAt then " (merged \(.mergedAt) by \(.mergedBy.login)" else " (not merged yet)" end)
 Reviews: \(.reviewDecision // "none")
 URL: \(.url)"'
