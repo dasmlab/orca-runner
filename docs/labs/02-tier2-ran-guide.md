@@ -33,9 +33,21 @@ Open5GS (5GC)  ←→  srsRAN gNB (E2 agent)  ←→  O-RAN SC RIC (docker)
 ### One-time deps (Ubuntu)
 
 ```bash
-sudo apt-get install -y cmake git libfftw3-dev libmbedtls-dev libsctp-dev \
-  libyaml-cpp-dev libgtest-dev libzmq3-dev pkg-config
+./labs/install-tier2-deps.sh
 ```
+
+Or manually:
+
+```bash
+sudo apt-get install -y cmake git libfftw3-dev libmbedtls-dev libsctp-dev \
+  libyaml-cpp-dev libgtest-dev libzmq3-dev libboost-program-options-dev libboost-dev
+```
+
+**Note:** SoapySDR / UHD warnings are OK for ZMQ-only lab (`-DENABLE_UHD=OFF`).
+
+### gNB config
+
+Use **`labs/configs/gnb_zmq_tier2.yaml`** — upstream `oran-sc-ric` `gnb_zmq.yaml` is **stale** for srsRAN `release_24_10` (`gnb_cu_up_id` parse error). Verified: E2 connects to `10.0.2.10:36421`.
 
 ---
 

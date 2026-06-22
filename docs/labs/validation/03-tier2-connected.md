@@ -29,17 +29,30 @@
 
 ## Blockers encountered (2026-06-22)
 
-### Build dependencies
+### Build dependencies (srsRAN_4G / Boost)
 
 ```
-CMake Error: Could NOT find MbedTLS (missing: MBEDTLS_LIBRARIES MBEDTLS_INCLUDE_DIRS)
+CMake Error: Boost required to build srsRAN
 ```
 
-**Fix:** run deps install from [02-tier2-ran-guide.md](../02-tier2-ran-guide.md), then:
+**Fix:**
 
 ```bash
+./labs/install-tier2-deps.sh
 ./labs/setup-tier2-ran-lab.sh build
 ```
+
+SoapySDR / UHD not found — **safe to ignore** for ZMQ lab.
+
+### gNB config drift (oran-sc-ric)
+
+Upstream `gnb_zmq.yaml` fails on srsRAN `release_24_10`:
+
+```
+INI was not able to parse gnb_cu_up_id
+```
+
+**Fix:** use [`labs/configs/gnb_zmq_tier2.yaml`](../../configs/gnb_zmq_tier2.yaml) (committed in orca-runner).
 
 ### sudo required
 

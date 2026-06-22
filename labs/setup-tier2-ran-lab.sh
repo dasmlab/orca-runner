@@ -11,7 +11,7 @@ if [[ ! -d "${LAB_DIR}" && -d "/home/dasm/vigie/orca-runner/labs/oran-sc-ric" ]]
 fi
 SRS_PROJECT_DIR="${ROOT}/labs/srsRAN_Project"
 SRS_4G_DIR="${ROOT}/labs/srsRAN_4G"
-GNB_CFG="${LAB_DIR}/e2-agents/srsRAN/gnb_zmq.yaml"
+GNB_CFG="${ROOT}/labs/configs/gnb_zmq_tier2.yaml"
 UE_CFG="${LAB_DIR}/e2-agents/srsRAN/ue_zmq.conf"
 LOG_DIR="${ROOT}/labs/tier2-logs"
 mkdir -p "${LOG_DIR}"
@@ -32,13 +32,22 @@ clone_repos() {
 build_srsran_project() {
   clone_repos
   export PATH="${HOME}/.local/cmake/bin:${PATH}"
-  if [[ -x "${SRS_PROJECT_DIR}/build/apps/gnb/gnb" ]]; then
-    echo "gnb already built"
-    return
+  local gnb_bin="${SRS_PROJECT_DIR}/build/apps/gnb/gnb"
+  if [[ -x "${gnb_bin}" ]]; then
+    if timeout 3s "${gnb_bin}" -c "${GNB_CFG}" 2>&1 | grep -q "INI was not able to parse"; then
+      echo "gnb binary exists but config failed — rebuild after deps/config fix"
+    else
+      echo "gnb already built and config parses"
+      return
+    fi
+  fi
+  if ! pkg-config --exists mbedtls 2>/dev/null; then
+    echo "Missing build deps. Run: ./labs/install-tier2-deps.sh" >&2
+    exit 1
   fi
   echo "Building srsRAN_Project (this takes several minutes)..."
   cmake -B "${SRS_PROJECT_DIR}/build" -S "${SRS_PROJECT_DIR}" \
-    -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON -DENABLE_DPDK=OFF
+    -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON -DENABLE_DPDK=OFF -DENABLE_UHD=OFF
   cmake --build "${SRS_PROJECT_DIR}/build" -j"$(nproc)" --target gnb
 }
 
@@ -49,8 +58,12 @@ build_srsran_4g_ue() {
     echo "srsue already built"
     return
   fi
+  if ! pkg-config --exists mbedtls 2>/dev/null || [[ ! -f /usr/include/boost/version.hpp ]]; then
+    echo "Missing build deps (Boost/MbedTLS). Run: ./labs/install-tier2-deps.sh" >&2
+    exit 1
+  fi
   echo "Building srsRAN_4G srsue..."
-  cmake -B "${SRS_4G_DIR}/build" -S "${SRS_4G_DIR}" -DENABLE_ZEROMQ=ON
+  cmake -B "${SRS_4G_DIR}/build" -S "${SRS_4G_DIR}" -DENABLE_ZEROMQ=ON -DENABLE_UHD=OFF
   cmake --build "${SRS_4G_DIR}/build" -j"$(nproc)" --target srsue
 }
 
