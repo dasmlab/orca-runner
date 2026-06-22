@@ -7,6 +7,7 @@
 | **Repo index** | [README.md](../README.md) |
 | **Roadmap (phases)** | [00-roadmap.md](./00-roadmap.md) |
 | **v0 shipped** | [roadmap/01-v0-shipped.md](./roadmap/01-v0-shipped.md) |
+| **srsRAN light touch** | [roadmap/02-srsran-light-touch.md](./roadmap/02-srsran-light-touch.md) |
 | **Ecosystem reality** | [roadmap/03-ecosystem-reality.md](./roadmap/03-ecosystem-reality.md) |
 | **Tier 2 RAN guide** | [labs/02-tier2-ran-guide.md](./labs/02-tier2-ran-guide.md) |
 | **Tier 2 validation log** | [labs/validation/03-tier2-connected.md](./labs/validation/03-tier2-connected.md) |
