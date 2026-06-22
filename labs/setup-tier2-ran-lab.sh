@@ -62,8 +62,16 @@ build_srsran_4g_ue() {
     echo "Missing build deps (Boost/MbedTLS). Run: ./labs/install-tier2-deps.sh" >&2
     exit 1
   fi
-  echo "Building srsRAN_4G srsue..."
-  cmake -B "${SRS_4G_DIR}/build" -S "${SRS_4G_DIR}" -DENABLE_ZEROMQ=ON -DENABLE_UHD=OFF
+  echo "Building srsRAN_4G srsue (UE only)..."
+  cmake -B "${SRS_4G_DIR}/build" -S "${SRS_4G_DIR}" \
+    -DENABLE_ZEROMQ=ON \
+    -DENABLE_UHD=OFF \
+    -DENABLE_SRSENB=OFF \
+    -DENABLE_SRSEPC=OFF \
+    -DENABLE_GUI=OFF \
+    -DENABLE_RF_PLUGINS=OFF \
+    -DENABLE_BLADERF=OFF \
+    -DENABLE_SOAPYSDR=OFF
   cmake --build "${SRS_4G_DIR}/build" -j"$(nproc)" --target srsue
 }
 

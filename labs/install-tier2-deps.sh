@@ -7,7 +7,8 @@ sudo apt-get install -y \
   cmake git pkg-config \
   libfftw3-dev libmbedtls-dev libsctp-dev libyaml-cpp-dev \
   libgtest-dev libzmq3-dev \
-  libboost-program-options-dev libboost-dev
+  libboost-program-options-dev libboost-dev \
+  libconfig++-dev
 
 echo "Done. Optional RF drivers (not needed for ZMQ lab): libuhd-dev libsoapysdr-dev"
 echo "Next: ./labs/setup-tier2-ran-lab.sh build"

@@ -18,7 +18,7 @@
 | Clone srsRAN_Project | ✅ | `release_24_10` in `labs/srsRAN_Project` |
 | Clone srsRAN_4G | ✅ | `labs/srsRAN_4G` |
 | Build gNB | ✅ | `labs/srsRAN_Project/build/apps/gnb/gnb` |
-| Build srsUE | ⬜ | run `./labs/install-tier2-deps.sh` then `build` |
+| Build srsUE | ✅ | UE-only cmake (`ENABLE_SRSENB=OFF`, `ENABLE_SRSEPC=OFF`) |
 | gNB config | ✅ | `labs/configs/gnb_zmq_tier2.yaml` (upstream yaml stale) |
 | gNB E2 smoke | ✅ | E2AP connected to `10.0.2.10:36421` |
 | Open5GS `5gc` docker | ✅ | `open5gs_5gc` healthy (2026-06-22) |
@@ -31,20 +31,20 @@
 
 ## Blockers encountered (2026-06-22)
 
-### Build dependencies (srsRAN_4G / Boost)
+### Build dependencies (srsRAN_4G / LibConfig)
+
+Default srsRAN_4G cmake builds srsENB + srsEPC too, which requires LibConfig:
 
 ```
-CMake Error: Boost required to build srsRAN
+Could NOT find LibConfig
 ```
 
-**Fix:**
+**Fix:** build script now passes `-DENABLE_SRSENB=OFF -DENABLE_SRSEPC=OFF` (UE only). Optional: `libconfig++-dev` in `install-tier2-deps.sh`.
 
 ```bash
-./labs/install-tier2-deps.sh
+rm -rf labs/srsRAN_4G/build   # if partial failed configure
 ./labs/setup-tier2-ran-lab.sh build
 ```
-
-SoapySDR / UHD not found — **safe to ignore** for ZMQ lab.
 
 ### gNB config drift (oran-sc-ric)
 
