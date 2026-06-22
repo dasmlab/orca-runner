@@ -1,0 +1,35 @@
+direction: right
+
+title: "ORCA-RUNNER CI Pipeline" {
+  style.font-size: 22
+  style.bold: true
+}
+
+dev: Developer {
+  style.fill: "#e8f4fc"
+  commit: git push / PR
+}
+
+ci: CI Pipeline {
+  style.fill: "#fff3cd"
+  build: Build xApp
+  orca: orca-runner check
+  decision: Pass / Warn / Fail
+}
+
+artifacts: Artifacts {
+  style.fill: "#d4edda"
+  json: orca-report.json
+  md: orca-report.md
+  eval: Threat-class evaluation
+}
+
+deploy: Downstream {
+  style.fill: "#e8f4fc"
+  gate: Policy gate
+  ric: RIC onboarding
+}
+
+dev.commit -> ci.build -> ci.orca -> ci.decision
+ci.decision -> artifacts
+artifacts -> deploy

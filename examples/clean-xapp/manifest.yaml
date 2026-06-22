@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: clean-xapp
+spec:
+  containers:
+    - name: xapp
+      image: ghcr.io/example/clean-xapp:0.0.1
+      securityContext:
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+      resources:
+        limits:
+          cpu: "500m"
+          memory: "512Mi"

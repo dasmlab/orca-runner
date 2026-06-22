@@ -1,0 +1,31 @@
+direction: right
+
+title: "O-RAN Threat Classes (ORCA taxonomy)" {
+  style.font-size: 20
+  style.bold: true
+}
+
+paper: ORCA reference {
+  style.fill: "#e8f4fc"
+  arxiv: "arXiv:2601.13681"
+  gitlab: submission1660638/orca
+  tables: "Tables 2–3: CAPEC / technique mapping"
+}
+
+threats: Threat classes {
+  style.fill: "#fff3cd"
+  te2: "T-E2\nE2 interface"
+  topensrc: "T-OPENSRC\nOpen source deps"
+  tvmc: "T-VM-C\nContainer / K8s"
+  tocapi: "T-OCAPI\nO-Cloud APIs"
+  tradio: "T-RADIO\nRadio layer"
+}
+
+runner: orca-runner v1 {
+  style.fill: "#d4edda"
+  static: Static heuristics today
+  policy: YAML policy pack
+  next: CVE mapping (ORCA path)
+}
+
+paper -> threats -> runner

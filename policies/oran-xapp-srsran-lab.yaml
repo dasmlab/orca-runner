@@ -1,0 +1,23 @@
+name: oran-xapp-srsran-lab
+description: Policy pack tuned for srsRAN oran-sc-ric xApp/python tree
+rules:
+  - id: fail-privileged
+    match: k8s-privileged-pod
+    threat_class: T-VM-C
+    action: fail
+  - id: fail-hardcoded-secret
+    match: hardcoded-secret
+    threat_class: T-OPENSRC
+    action: fail
+  - id: warn-legacy-e2-node-id
+    match: legacy-e2-node-id
+    threat_class: T-E2
+    action: warn
+  - id: warn-readme-e2-id-mismatch
+    match: readme-e2-id-mismatch
+    threat_class: T-E2
+    action: warn
+  - id: info-rmr-flags-zero
+    match: rmr-flags-zero
+    threat_class: T-E2
+    action: warn

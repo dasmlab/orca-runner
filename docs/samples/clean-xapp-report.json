@@ -1,0 +1,15 @@
+{
+  "schema": "orca-report-v1",
+  "tool": "orca-runner",
+  "tool_version": "0.1.0-alpha",
+  "generated_at": "2026-06-22T12:18:43.291147441Z",
+  "target": "examples/clean-xapp",
+  "policy": "policies/oran-xapp-v0.yaml",
+  "decision": "pass",
+  "summary": "No policy violations",
+  "evaluation": {
+    "by_threat_class": [],
+    "total_findings": 0
+  },
+  "findings": null
+}

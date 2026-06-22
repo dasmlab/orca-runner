@@ -1,0 +1,22 @@
+name: oran-xapp-v0
+rules:
+  - id: fail-privileged
+    match: k8s-privileged-pod
+    threat_class: T-VM-C
+    severity: high
+    action: fail
+  - id: warn-host-network
+    match: k8s-host-network
+    threat_class: T-VM-C
+    severity: medium
+    action: warn
+  - id: fail-hardcoded-secret
+    match: hardcoded-secret
+    threat_class: T-OPENSRC
+    severity: critical
+    action: fail
+  - id: warn-descriptor
+    match: xapp-descriptor-incomplete
+    threat_class: T-OCAPI
+    severity: medium
+    action: warn

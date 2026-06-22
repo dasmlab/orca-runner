@@ -1,0 +1,10 @@
+{
+  "xapp_name": "clean-demo-xapp",
+  "version": "0.0.1",
+  "containers": [
+    {
+      "name": "xapp",
+      "image": "ghcr.io/example/clean-xapp:0.0.1"
+    }
+  ]
+}

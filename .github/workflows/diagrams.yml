@@ -1,0 +1,33 @@
+name: Diagrams
+
+on:
+  push:
+    paths:
+      - 'diagrams/**'
+      - 'scripts/render-diagrams.sh'
+      - '.github/workflows/diagrams.yml'
+  pull_request:
+    paths:
+      - 'diagrams/**'
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install d2
+        run: curl -fsSL https://d2lang.com/install.sh | sh -s --
+
+      - name: Render diagrams
+        run: |
+          export PATH="${HOME}/.local/bin:${PATH}"
+          ./scripts/render-diagrams.sh
+
+      - name: Check for SVG drift
+        run: |
+          if ! git diff --quiet diagrams/svg; then
+            echo "SVG outputs are out of date. Run ./scripts/render-diagrams.sh and commit."
+            git diff diagrams/svg
+            exit 1
+          fi

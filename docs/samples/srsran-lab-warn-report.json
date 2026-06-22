@@ -1,0 +1,39 @@
+{
+  "schema": "orca-report-v1",
+  "tool": "orca-runner",
+  "tool_version": "0.1.0-alpha",
+  "generated_at": "2026-06-22T12:03:58.675713184Z",
+  "target": "labs/oran-sc-ric",
+  "policy": "policies/oran-xapp-srsran-lab.yaml",
+  "decision": "warn",
+  "summary": "README E2 node ID examples may be stale",
+  "evaluation": {
+    "by_threat_class": [
+      {
+        "threat_class": "T-E2",
+        "finding_count": 2,
+        "highest_severity": "medium",
+        "policy_action": "warn"
+      }
+    ],
+    "total_findings": 2
+  },
+  "findings": [
+    {
+      "id": "readme-e2-id-mismatch",
+      "threat_class": "T-E2",
+      "severity": "medium",
+      "title": "README E2 node ID examples may be stale",
+      "detail": "Examples use gnb_ IDs; xApp defaults use gnbd_ — causes copy-paste failures",
+      "source": "README.md"
+    },
+    {
+      "id": "rmr-flags-zero",
+      "threat_class": "T-E2",
+      "severity": "low",
+      "title": "RMR flags default 0x00",
+      "detail": "Known KPM vs RC tradeoff per oran-sc-ric issue #12",
+      "source": "xApps/python/lib/xAppBase.py"
+    }
+  ]
+}

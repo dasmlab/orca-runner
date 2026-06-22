@@ -1,0 +1,53 @@
+{
+  "schema": "orca-report-v1",
+  "tool": "orca-runner",
+  "tool_version": "0.1.0-alpha",
+  "generated_at": "2026-06-22T12:18:43.292949553Z",
+  "target": "examples/unsafe-xapp",
+  "policy": "policies/oran-xapp-v0.yaml",
+  "decision": "fail",
+  "summary": "Potential hardcoded secret",
+  "evaluation": {
+    "by_threat_class": [
+      {
+        "threat_class": "T-OPENSRC",
+        "finding_count": 1,
+        "highest_severity": "critical",
+        "policy_action": "fail"
+      },
+      {
+        "threat_class": "T-VM-C",
+        "finding_count": 2,
+        "highest_severity": "high",
+        "policy_action": "fail"
+      }
+    ],
+    "total_findings": 3
+  },
+  "findings": [
+    {
+      "id": "hardcoded-secret",
+      "threat_class": "T-OPENSRC",
+      "severity": "critical",
+      "title": "Potential hardcoded secret",
+      "detail": "suspicious credential pattern at line 2",
+      "source": "examples/unsafe-xapp/app.py"
+    },
+    {
+      "id": "k8s-privileged-pod",
+      "threat_class": "T-VM-C",
+      "severity": "high",
+      "title": "Privileged container requested",
+      "detail": "Manifest requests privileged mode",
+      "source": "examples/unsafe-xapp/manifest.yaml"
+    },
+    {
+      "id": "k8s-host-network",
+      "threat_class": "T-VM-C",
+      "severity": "medium",
+      "title": "hostNetwork enabled",
+      "detail": "Pod may bypass cluster network policy",
+      "source": "examples/unsafe-xapp/manifest.yaml"
+    }
+  ]
+}

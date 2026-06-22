@@ -1,0 +1,43 @@
+name: xApp security check
+
+on:
+  push:
+    paths:
+      - 'xApps/python/**'
+      - '.github/workflows/xapp-security.yml'
+  pull_request:
+    paths:
+      - 'xApps/python/**'
+
+jobs:
+  orca-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Clone orca-runner
+        run: git clone --depth 1 https://github.com/dasmlab/orca-runner.git /tmp/orca-runner
+
+      - name: Build orca-runner
+        run: make -C /tmp/orca-runner build
+
+      - name: Scan xApps/python
+        run: |
+          /tmp/orca-runner/bin/orca-runner check \
+            --policy /tmp/orca-runner/policies/oran-xapp-srsran-lab.yaml \
+            --report orca-report.json \
+            --markdown orca-report.md \
+            xApps/python
+        continue-on-error: true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: orca-report
+          path: |
+            orca-report.json
+            orca-report.md

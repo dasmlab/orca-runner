@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dasmlab/orca-runner/schemas/orca-report-v1.schema.json",
+  "title": "ORCA-RUNNER Report v1",
+  "description": "CI scan output aligned with ORCA threat-class evaluation (see arXiv:2601.13681)",
+  "type": "object",
+  "required": ["schema", "tool", "tool_version", "generated_at", "target", "policy", "decision", "evaluation", "findings"],
+  "properties": {
+    "schema": { "const": "orca-report-v1" },
+    "tool": { "const": "orca-runner" },
+    "tool_version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "target": { "type": "string" },
+    "policy": { "type": "string" },
+    "decision": { "enum": ["pass", "warn", "fail"] },
+    "summary": { "type": "string" },
+    "evaluation": {
+      "type": "object",
+      "required": ["by_threat_class", "total_findings"],
+      "properties": {
+        "total_findings": { "type": "integer", "minimum": 0 },
+        "by_threat_class": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["threat_class", "finding_count", "highest_severity", "policy_action"],
+            "properties": {
+              "threat_class": {
+                "type": "string",
+                "description": "O-RAN threat class from ORCA taxonomy (e.g. T-E2, T-OPENSRC)"
+              },
+              "finding_count": { "type": "integer", "minimum": 0 },
+              "highest_severity": { "type": "string" },
+              "policy_action": { "enum": ["pass", "warn", "fail"] }
+            }
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "threat_class", "severity", "title", "detail", "source"],
+        "properties": {
+          "id": { "type": "string" },
+          "threat_class": { "type": "string" },
+          "severity": { "type": "string" },
+          "title": { "type": "string" },
+          "detail": { "type": "string" },
+          "source": { "type": "string" }
+        }
+      }
+    }
+  }
+}

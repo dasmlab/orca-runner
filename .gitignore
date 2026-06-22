@@ -1,0 +1,13 @@
+# Build
+bin/
+orca-report.json
+orca-report.md
+
+# Lab clones (user-managed)
+labs/oran-sc-ric/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/

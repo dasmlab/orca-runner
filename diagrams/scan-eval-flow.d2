@@ -1,0 +1,36 @@
+direction: down
+
+title: "Scan → Evaluation → Decision" {
+  style.font-size: 22
+  style.bold: true
+}
+
+scan: Static scan {
+  style.fill: "#e8f4fc"
+  yaml: K8s manifests
+  code: xApp source
+  docs: README / descriptors
+}
+
+findings: Findings {
+  style.fill: "#fff3cd"
+  ids: Rule IDs
+  class: Threat class (T-E2, T-OPENSRC, …)
+  sev: Severity
+}
+
+eval: Evaluation roll-up {
+  style.fill: "#f8d7da"
+  table: by_threat_class table
+  count: finding_count
+  action: policy_action
+}
+
+out: Pipeline decision {
+  style.fill: "#d4edda"
+  pass: pass (0)
+  warn: warn (1)
+  fail: fail (2)
+}
+
+scan -> findings -> eval -> out
