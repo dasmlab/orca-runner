@@ -5,7 +5,9 @@
 | What | Path |
 |------|------|
 | **Repo index** | [README.md](../README.md) |
-| **Roadmap** | [00-roadmap.md](./00-roadmap.md) |
+| **Roadmap (phases)** | [00-roadmap.md](./00-roadmap.md) |
+| **v0 shipped** | [roadmap/01-v0-shipped.md](./roadmap/01-v0-shipped.md) |
+| **srsRAN light touch** | [roadmap/02-srsran-light-touch.md](./roadmap/02-srsran-light-touch.md) |
 | **ORCA paper relationship** | [00-orca-relationship.md](./00-orca-relationship.md) |
 | **Report format** | [report-format.md](./report-format.md) |
 | **Sample reports** | [samples/](./samples/) |

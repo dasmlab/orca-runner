@@ -14,7 +14,7 @@ Public plan for orca-runner — what exists today, what we are validating next, 
 | ORCA-aligned report (`evaluation.by_threat_class`) | **Done** | `0.0.1-alpha` |
 | srsRAN lab wrapper + scan policy | **Done** | `0.0.1-alpha` |
 | Public roadmap scaffold | **Done** | `0.1.0-alpha` |
-| srsRAN papercut PR (README E2 IDs) | **In progress** | [contributions](../contributions/srsran-oran-sc-ric/) |
+| srsRAN papercut PR (README E2 IDs) | **Open** | [srsran/oran-sc-ric#88](https://github.com/srsran/oran-sc-ric/pull/88) |
 | Lab credibility bar (minimum) | **Planned** | Phase 1 |
 | Tier 2 RAN + live KPM | **Planned** | Phase 2 |
 | srsRAN CI workflow proposal | **Planned** | Phase 3 — after credibility bar |
@@ -37,7 +37,7 @@ Public plan for orca-runner — what exists today, what we are validating next, 
 
 | Task | Status | Artifact |
 |------|--------|----------|
-| Papercut PR: README `gnb_*` → `gnbd_*` examples | 🔄 | PR to [srsran/oran-sc-ric](https://github.com/srsran/oran-sc-ric) |
+| Papercut PR: README `gnb_*` → `gnbd_*` examples | ✅ open | [srsran/oran-sc-ric#88](https://github.com/srsran/oran-sc-ric/pull/88) |
 | Link public repo in PR body | 🔄 | https://github.com/dasmlab/orca-runner |
 | xApp matrix on Tier 1 (no gNB) | ⬜ | [labs/validation/01-xapp-matrix.md](./labs/validation/01-xapp-matrix.md) |
 | `orca-runner scan` notes (warning → runtime pain) | ⬜ | [labs/validation/02-scan-mapping.md](./labs/validation/02-scan-mapping.md) |

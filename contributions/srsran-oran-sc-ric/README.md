@@ -1,27 +1,20 @@
 # srsran/oran-sc-ric contribution pack
 
-Ready-to-use artifacts for upstream engagement. Link this repo in PRs and issues.
+Ready-to-use artifacts for upstream engagement.
 
-| Step | File | Action |
-|------|------|--------|
-| **1 — Issue** | [../../docs/labs/drafts/srsran-issue-01-xapp-security-ci.md](../../docs/labs/drafts/srsran-issue-01-xapp-security-ci.md) | Paste into GitHub new issue |
-| **2 — Papercut PR** | [../../docs/labs/drafts/srsran-pr-01-readme-e2-node-id.md](../../docs/labs/drafts/srsran-pr-01-readme-e2-node-id.md) | Fork, apply patch, open PR |
-| **Patch** | [README-e2-node-id.patch](./README-e2-node-id.patch) | `git apply` on fork |
-| **3 — CI PR (later)** | [xapp-security.yml](./xapp-security.yml) | After issue discussion |
+| Step | Status | Link |
+|------|--------|------|
+| **Papercut PR** | ✅ open | [srsran/oran-sc-ric#88](https://github.com/srsran/oran-sc-ric/pull/88) |
+| **CI issue draft** | later | [srsran-issue-01-xapp-security-ci.md](../../docs/labs/drafts/srsran-issue-01-xapp-security-ci.md) |
+| **CI workflow draft** | later | [xapp-security.yml](./xapp-security.yml) |
+| **Patch (reference)** | | [README-e2-node-id.patch](./README-e2-node-id.patch) |
 
-## Quick submit (papercut PR)
+## Sequence
 
-```bash
-git clone git@github.com:YOURUSER/oran-sc-ric.git
-cd oran-sc-ric
-git checkout -b docs/align-readme-e2-node-id-examples
-patch -p1 < "$(curl -fsSL https://raw.githubusercontent.com/dasmlab/orca-runner/main/contributions/srsran-oran-sc-ric/README-e2-node-id.patch)"
-git add README.md && git commit -m "docs: align README E2 node ID examples with xApp defaults"
-git push origin docs/align-readme-e2-node-id-examples
-```
+1. **Papercut PR** — [#88](https://github.com/srsran/oran-sc-ric/pull/88) (open)
+2. Phase 1 validation — [labs/validation/](../../docs/labs/validation/)
+3. **Workflow PR** — after Tier 2 credibility bar; references https://github.com/dasmlab/orca-runner
 
-## Order
+## Roadmap
 
-1. **Papercut PR** or **issue** — show you've run the lab
-2. Merge docs PR — low risk
-3. **Workflow PR** — references https://github.com/dasmlab/orca-runner
+Public plan: [docs/00-roadmap.md](../../docs/00-roadmap.md)
