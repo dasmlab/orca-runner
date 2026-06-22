@@ -74,6 +74,29 @@ Use **`labs/configs/gnb_zmq_tier2.yaml`** — upstream `oran-sc-ric` `gnb_zmq.ya
 
 **Common pitfall:** `sudo ./gnb` fails if `/tmp/gnb.log` exists from a prior run — config now logs to `labs/tier2-logs/gnb-srs.log` instead.
 
+### E2 vs UE (why C hangs)
+
+| Path | What works without E2 |
+|------|------------------------|
+| **N2 / 5GC** (UE attach, IP) | ✅ Terminal B can succeed |
+| **E2 / KPM** (xApp subscribe) | ❌ needs gNB registered on RIC |
+
+Check E2 before xApp:
+
+```bash
+./labs/setup-tier2-ran-lab.sh check-e2
+# want: ranNames with gnbd_001_001_00019b_0
+```
+
+If gNB log shows **`E2 Setup procedure failed`**: RIC enforces **60s reconnect wait** after a dropped E2 link. Fix:
+
+```bash
+./labs/setup-oran-sc-ric-lab.sh down && ./labs/setup-oran-sc-ric-lab.sh up
+sleep 60
+# Terminal A: gnb only once — wait for E2 Setup successful
+./labs/setup-tier2-ran-lab.sh check-e2
+```
+
 Logs: `labs/tier2-logs/`
 
 Validation log: [validation/03-tier2-connected.md](./validation/03-tier2-connected.md)

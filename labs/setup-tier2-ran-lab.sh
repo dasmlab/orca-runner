@@ -111,10 +111,49 @@ start_ue() {
   sudo "${SRS_4G_DIR}/build/srsue/src/srsue" "${UE_CFG}" 2>&1 | tee "${LOG_DIR}/ue.log"
 }
 
+check_e2() {
+  local json
+  json=$(curl -sf "http://10.0.2.11:3800/v1/e2t/list" 2>/dev/null || true)
+  if [[ -z "${json}" ]]; then
+    echo "E2 check: e2mgr API unreachable at 10.0.2.11:3800"
+    return 1
+  fi
+  echo "E2 nodes registered: ${json}"
+  if echo "${json}" | grep -q '"ranNames":\[\]'; then
+    return 1
+  fi
+  if echo "${json}" | grep -q 'gnbd_'; then
+    return 0
+  fi
+  # non-empty ranNames but unexpected id — still try
+  echo "${json}" | grep -q '"ranNames":\[.\+' && return 0
+  return 1
+}
+
+wait_for_e2() {
+  local i max=24
+  echo "Waiting for E2 node in RIC (up to 120s)..."
+  for ((i=1; i<=max; i++)); do
+    if check_e2; then
+      echo "E2 ready."
+      return 0
+    fi
+    sleep 5
+  done
+  echo "E2 NOT registered. Common causes:" >&2
+  echo "  - gNB log: 'E2 Setup procedure failed' (RIC 60s reconnect — restart RIC or wait)" >&2
+  echo "  - gNB not running in terminal A" >&2
+  echo "  Fix: ./labs/setup-oran-sc-ric-lab.sh down && up ; wait 60s ; restart gNB once" >&2
+  return 1
+}
+
 xapp_kpm_smoke() {
   cd "${LAB_DIR}"
-  echo "Waiting 5s for E2 registration..."
-  sleep 5
+  if ! wait_for_e2; then
+    echo "Skipping xApp — no E2 node. UE can work while E2 is down; KPM cannot." >&2
+    return 1
+  fi
+  echo "Starting KPM xApp (45s timeout)..."
   timeout 45s docker compose exec -T python_xapp_runner \
     ./simple_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl 2>&1 | tee "${LOG_DIR}/xapp-mon.log" || true
   echo "--- submgr (last 3 lines) ---"
@@ -129,8 +168,13 @@ status() {
   echo "=== Builds ==="
   [[ -x "${SRS_PROJECT_DIR}/build/apps/gnb/gnb" ]] && echo "gnb: ok" || echo "gnb: not built"
   [[ -x "${SRS_4G_DIR}/build/srsue/src/srsue" ]] && echo "srsue: ok" || echo "srsue: not built"
-  echo "=== E2 (submgr) ==="
+  echo "=== E2 (e2mgr) ==="
+  check_e2 || true
   docker compose -f "${LAB_DIR}/docker-compose.yml" logs submgr --tail=3 2>/dev/null || true
+  if [[ -f "${LOG_DIR}/gnb-srs.log" ]]; then
+    echo "=== gNB E2 (last) ==="
+    grep -E 'E2 Setup|E2setup' "${LOG_DIR}/gnb-srs.log" 2>/dev/null | tail -3 || true
+  fi
 }
 
 case "${cmd}" in
@@ -140,10 +184,12 @@ case "${cmd}" in
   gnb) start_gnb ;;
   ue) start_ue ;;
   xapp) xapp_kpm_smoke ;;
+  check-e2) check_e2 ;;
+  wait-e2) wait_for_e2 ;;
   status) status ;;
   *)
     cat <<EOF
-Usage: $0 {clone|build|5gc|gnb|ue|xapp|status}
+Usage: $0 {clone|build|5gc|gnb|ue|xapp|check-e2|wait-e2|status}
 
 Typical Tier 2 flow (multiple terminals):
   1. ./labs/setup-oran-sc-ric-lab.sh up
