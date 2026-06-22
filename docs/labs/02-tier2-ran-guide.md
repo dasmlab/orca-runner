@@ -53,26 +53,26 @@ Use **`labs/configs/gnb_zmq_tier2.yaml`** — upstream `oran-sc-ric` `gnb_zmq.ya
 
 ## Scripted flow
 
+**Order matters.** Do not start C until A shows E2 setup and B has an IP.
+
 ```bash
-# Terminal 0 — RIC
+# Terminal 0 — RIC + 5GC (once)
 ./labs/setup-oran-sc-ric-lab.sh up
-
-# Clone + build (once)
-./labs/setup-tier2-ran-lab.sh clone
-./labs/setup-tier2-ran-lab.sh build
-
-# 5GC
 ./labs/setup-tier2-ran-lab.sh 5gc
 
-# Terminal A — gNB (sudo, foreground)
+# Terminal A — gNB (leave running; no sudo for ZMQ)
 ./labs/setup-tier2-ran-lab.sh gnb
+# Wait for: "E2 Setup procedure successful" and "==== gNB started ==="
 
-# Terminal B — UE (sudo, foreground)
+# Terminal B — UE (sudo for netns; leave running)
 ./labs/setup-tier2-ran-lab.sh ue
+# Wait for: "RRC Connected" and IP e.g. 10.45.1.2
 
-# Terminal C — KPM xApp
+# Terminal C — KPM xApp (after A + B stable)
 ./labs/setup-tier2-ran-lab.sh xapp
 ```
+
+**Common pitfall:** `sudo ./gnb` fails if `/tmp/gnb.log` exists from a prior run — config now logs to `labs/tier2-logs/gnb-srs.log` instead.
 
 Logs: `labs/tier2-logs/`
 

@@ -46,7 +46,7 @@ cell_cfg:
     mcs_table: qam64
 
 log:
-  filename: /tmp/gnb.log
+  filename: /home/dasm/orca-runner-pub/labs/tier2-logs/gnb-srs.log
   all_level: info
 
 pcap:

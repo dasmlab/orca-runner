@@ -93,8 +93,14 @@ start_5gc() {
 start_gnb() {
   build_srsran_project
   [[ -f "${LAB_DIR}/.env" ]] || { echo "RIC lab missing"; exit 1; }
-  echo "Starting gNB (needs sudo) — logs: ${LOG_DIR}/gnb.log"
-  sudo "${SRS_PROJECT_DIR}/build/apps/gnb/gnb" -c "${GNB_CFG}" 2>&1 | tee "${LOG_DIR}/gnb.log"
+  mkdir -p "${LOG_DIR}"
+  # Stale /tmp/gnb.log from older configs blocks sudo runs
+  sudo rm -f /tmp/gnb.log 2>/dev/null || true
+  pkill -f 'build/apps/gnb/gnb' 2>/dev/null || true
+  sleep 2
+  echo "Starting gNB (no sudo needed for ZMQ) — tee log: ${LOG_DIR}/gnb-console.log"
+  echo "Wait for: E2 Setup procedure successful + ==== gNB started ==="
+  "${SRS_PROJECT_DIR}/build/apps/gnb/gnb" -c "${GNB_CFG}" 2>&1 | tee "${LOG_DIR}/gnb-console.log"
 }
 
 start_ue() {
@@ -107,10 +113,12 @@ start_ue() {
 
 xapp_kpm_smoke() {
   cd "${LAB_DIR}"
-  docker compose restart python_xapp_runner
-  sleep 3
-  timeout 30s docker compose exec -T python_xapp_runner \
+  echo "Waiting 5s for E2 registration..."
+  sleep 5
+  timeout 45s docker compose exec -T python_xapp_runner \
     ./simple_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl 2>&1 | tee "${LOG_DIR}/xapp-mon.log" || true
+  echo "--- submgr (last 3 lines) ---"
+  docker compose logs submgr --tail=3 2>/dev/null || true
 }
 
 status() {
