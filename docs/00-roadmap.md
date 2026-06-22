@@ -16,7 +16,7 @@ Public plan for orca-runner — what exists today, what we are validating next, 
 | Public roadmap scaffold | **Done** | `0.1.0-alpha` |
 | srsRAN papercut PR (README E2 IDs) | **Open** | [srsran/oran-sc-ric#88](https://github.com/srsran/oran-sc-ric/pull/88) |
 | Lab credibility bar (minimum) | **Done** | Phase 1 — 2026-06-22 |
-| Tier 2 RAN + live KPM | **Planned** | Phase 2 |
+| Tier 2 RAN + live KPM | **In progress** | 5GC up; gNB build needs host deps + sudo |
 | srsRAN CI workflow proposal | **Planned** | Phase 3 — after credibility bar |
 
 ---
@@ -48,16 +48,19 @@ Public plan for orca-runner — what exists today, what we are validating next, 
 2. Run each shipped example xApp once; record outcome
 3. Document which orca-runner warnings map to which community issues ([#12](https://github.com/srsran/oran-sc-ric/issues/12), [#26](https://github.com/srsran/oran-sc-ric/issues/26), [#63](https://github.com/srsran/oran-sc-ric/issues/63))
 
-### Phase 2 — Runtime validation (next minor work)
+### Phase 2 — Runtime validation (in progress)
 
-**Goal:** Honest “we connected E2” story before asking maintainers to run us on every PR.
+**Goal:** Honest “we connected E2” story — for orca-runner demos, not srsRAN CI adoption.
+
+See [03-ecosystem-reality.md](./roadmap/03-ecosystem-reality.md).
 
 | Task | Status | Artifact |
 |------|--------|----------|
-| Tier 2: Open5GS + srsRAN gNB + srsUE (ZMQ) | ⬜ | Lab guide update |
-| ≥1 successful KPM `RIC_INDICATION` | ⬜ | Log + optional screenshot |
-| E2 node ID check vs live gNB | ⬜ | New or tightened `T-E2` rule |
-| Sample report: connected lab vs clone-only | ⬜ | `docs/samples/srsran-lab-connected-report.json` |
+| Tier 2 guide + script | ✅ | [02-tier2-ran-guide.md](./labs/02-tier2-ran-guide.md), `labs/setup-tier2-ran-lab.sh` |
+| Open5GS 5gc docker | ✅ | [03-tier2-connected.md](./labs/validation/03-tier2-connected.md) |
+| Build srsRAN gNB + srsUE | ⬜ | blocked: `libmbedtls-dev` + sudo on host |
+| ≥1 successful KPM `RIC_INDICATION` | ⬜ | |
+| Connected sample report | ⬜ | `docs/samples/srsran-lab-connected-report.json` |
 
 ### Phase 3 — CI proposal (after Phase 2)
 

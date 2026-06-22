@@ -5,6 +5,9 @@ orca-report.md
 
 # Lab clones (user-managed)
 labs/oran-sc-ric/
+labs/srsRAN_Project/
+labs/srsRAN_4G/
+labs/tier2-logs/
 
 # OS / editor
 .DS_Store
