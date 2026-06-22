@@ -5,6 +5,7 @@
 | What | Path |
 |------|------|
 | **Repo index** | [README.md](../README.md) |
+| **Roadmap** | [00-roadmap.md](./00-roadmap.md) |
 | **ORCA paper relationship** | [00-orca-relationship.md](./00-orca-relationship.md) |
 | **Report format** | [report-format.md](./report-format.md) |
 | **Sample reports** | [samples/](./samples/) |
@@ -14,6 +15,7 @@
 | What | Path |
 |------|------|
 | Lab guide | [labs/01-oran-sc-ric-lab-guide.md](./labs/01-oran-sc-ric-lab-guide.md) |
+| **Validation log (Phase 1)** | [labs/validation/](./labs/validation/) |
 | Lab script | [labs/setup-oran-sc-ric-lab.sh](../labs/setup-oran-sc-ric-lab.sh) |
 | srsRAN policy | [policies/oran-xapp-srsran-lab.yaml](../policies/oran-xapp-srsran-lab.yaml) |
 | Upstream contribution pack | [contributions/srsran-oran-sc-ric/](../contributions/srsran-oran-sc-ric/) |

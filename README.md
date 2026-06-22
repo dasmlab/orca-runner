@@ -83,7 +83,8 @@ Example workflow for srsRAN: [contributions/srsran-oran-sc-ric/xapp-security.yml
 
 ## Docs map
 
-→ [docs/WHERE-TO-READ.md](./docs/WHERE-TO-READ.md)
+→ [docs/WHERE-TO-READ.md](./docs/WHERE-TO-READ.md)  
+→ [docs/00-roadmap.md](./docs/00-roadmap.md) — public plan and phase checklist
 
 ## Diagrams
 

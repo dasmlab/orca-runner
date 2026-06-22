@@ -1,6 +1,8 @@
+diff --git a/README.md b/README.md
+index 2f7cab4..2e6a5c3 100644
 --- a/README.md
 +++ b/README.md
-@@ -126,6 +126,8 @@
+@@ -126,10 +126,12 @@ To start the provided example [xApp](xApps/python/simple_mon_xapp.py), please ru
  docker compose exec python_xapp_runner ./simple_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl
  ```
  
