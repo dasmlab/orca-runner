@@ -15,7 +15,7 @@ Public plan for orca-runner — what exists today, what we are validating next, 
 | srsRAN lab wrapper + scan policy | **Done** | `0.0.1-alpha` |
 | Public roadmap scaffold | **Done** | `0.1.0-alpha` |
 | srsRAN papercut PR (README E2 IDs) | **Open** | [srsran/oran-sc-ric#88](https://github.com/srsran/oran-sc-ric/pull/88) |
-| Lab credibility bar (minimum) | **Planned** | Phase 1 |
+| Lab credibility bar (minimum) | **Done** | Phase 1 — 2026-06-22 |
 | Tier 2 RAN + live KPM | **Planned** | Phase 2 |
 | srsRAN CI workflow proposal | **Planned** | Phase 3 — after credibility bar |
 
@@ -39,8 +39,8 @@ Public plan for orca-runner — what exists today, what we are validating next, 
 |------|--------|----------|
 | Papercut PR: README `gnb_*` → `gnbd_*` examples | ✅ open | [srsran/oran-sc-ric#88](https://github.com/srsran/oran-sc-ric/pull/88) |
 | Link public repo in PR body | 🔄 | https://github.com/dasmlab/orca-runner |
-| xApp matrix on Tier 1 (no gNB) | ⬜ | [labs/validation/01-xapp-matrix.md](./labs/validation/01-xapp-matrix.md) |
-| `orca-runner scan` notes (warning → runtime pain) | ⬜ | [labs/validation/02-scan-mapping.md](./labs/validation/02-scan-mapping.md) |
+| xApp matrix on Tier 1 (no gNB) | ✅ | [labs/validation/01-xapp-matrix.md](./labs/validation/01-xapp-matrix.md) |
+| `orca-runner scan` notes (warning → runtime pain) | ✅ | [labs/validation/02-scan-mapping.md](./labs/validation/02-scan-mapping.md) |
 
 **Credibility bar (minimum)** — enough for a discussion issue, not yet for CI merge:
 
@@ -82,11 +82,11 @@ Public plan for orca-runner — what exists today, what we are validating next, 
 
 | xApp | Exercises | Tier 1 (no gNB) | Tier 2 (with gNB) | Notes |
 |------|-----------|-----------------|-------------------|-------|
-| `simple_mon_xapp.py` | KPM subscribe | ⬜ | ⬜ | |
-| `kpm_mon_xapp.py` | KPM report styles 1–5 | ⬜ | ⬜ | |
-| `simple_rc_xapp.py` | E2SM-RC control | ⬜ | ⬜ | |
-| `simple_rc_ho_xapp.py` | Handover | ⬜ | ⬜ | |
-| `simple_ccc_xapp.py` | CCC | ⬜ | ⬜ | |
+| `simple_mon_xapp.py` | KPM subscribe | ❌ SubMgr 503 (no E2) | ⬜ | [matrix](./labs/validation/01-xapp-matrix.md) |
+| `kpm_mon_xapp.py` | KPM report styles 1–5 | ❌ SubMgr 503 (no E2) | ⬜ | |
+| `simple_rc_xapp.py` | E2SM-RC control | ✅ RMR starts | ⬜ | partial |
+| `simple_rc_ho_xapp.py` | Handover | ✅ HO cmd exit 0 | ⬜ | |
+| `simple_ccc_xapp.py` | CCC | ✅ RMR starts | ⬜ | partial |
 
 Fill results in [labs/validation/01-xapp-matrix.md](./labs/validation/01-xapp-matrix.md).
 
