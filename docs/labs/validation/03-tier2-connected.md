@@ -17,10 +17,12 @@
 | Tier 1 RIC Up | ✅ | 7/7 containers |
 | Clone srsRAN_Project | ✅ | `release_24_10` in `labs/srsRAN_Project` |
 | Clone srsRAN_4G | ✅ | `labs/srsRAN_4G` |
-| Build gNB | ⬜ blocked | Needs `libmbedtls-dev` + cmake deps (`sudo apt`) |
-| Build srsUE | ⬜ blocked | Same |
+| Build gNB | ✅ | `labs/srsRAN_Project/build/apps/gnb/gnb` |
+| Build srsUE | ⬜ | run `./labs/install-tier2-deps.sh` then `build` |
+| gNB config | ✅ | `labs/configs/gnb_zmq_tier2.yaml` (upstream yaml stale) |
+| gNB E2 smoke | ✅ | E2AP connected to `10.0.2.10:36421` |
 | Open5GS `5gc` docker | ✅ | `open5gs_5gc` healthy (2026-06-22) |
-| gNB connected to RIC | ⬜ | requires **sudo** on host |
+| gNB long-run + UE | ⬜ | requires **sudo** in separate terminals |
 | srsUE attached | ⬜ | requires **sudo** + netns |
 | KPM `RIC_INDICATION` | ⬜ | |
 | Connected sample report | ⬜ | `docs/samples/srsran-lab-connected-report.json` |
